@@ -3,375 +3,108 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI 工具箱 - 简历优化 | PPT大纲 | 论文润色 | 演讲稿 | 模拟面试 | 辩论立论</title>
+<title>AI 工具箱</title>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <style>
   :root {
-    --bg: #0f0f14;
-    --card: #1a1a24;
-    --border: #2a2a3a;
-    --text: #e0e0e8;
-    --muted: #8888a0;
-    --accent: #6c5ce7;
-    --accent2: #a29bfe;
-    --green: #00d2a0;
-    --red: #ff6b6b;
-    --yellow: #ffd93d;
-    --radius: 12px;
-    --shadow: 0 4px 24px rgba(0,0,0,0.3);
+    --bg: #0f0f14; --card: #1a1a24; --border: #2a2a3a; --text: #e0e0e8;
+    --muted: #8888a0; --accent: #6c5ce7; --accent2: #a29bfe;
+    --green: #00d2a0; --red: #ff6b6b; --yellow: #ffd93d;
+    --radius: 12px; --shadow: 0 4px 24px rgba(0,0,0,0.3);
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    line-height: 1.6;
+    background: var(--bg); color: var(--text); min-height: 100vh; line-height: 1.6;
   }
-
-  /* Background gradient */
   body::before {
-    content: '';
-    position: fixed;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
+    content: ''; position: fixed; top: -50%; left: -50%; width: 200%; height: 200%;
     background: radial-gradient(circle at 30% 20%, rgba(108,92,231,0.08) 0%, transparent 50%),
                 radial-gradient(circle at 70% 80%, rgba(0,210,160,0.05) 0%, transparent 50%);
-    pointer-events: none;
-    z-index: -1;
+    pointer-events: none; z-index: -1;
   }
+  .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+  header { text-align: center; padding: 40px 0 20px; }
+  header h1 { font-size: 2rem; font-weight: 800; background: linear-gradient(135deg, var(--accent2), var(--green)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  header p { color: var(--muted); margin-top: 8px; font-size: 0.95rem; }
 
-  .container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 20px;
-  }
+  .tool-tabs { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 24px; }
+  .tool-tab { padding: 10px 16px; border-radius: 20px; background: var(--card); border: 1px solid var(--border); color: var(--muted); cursor: pointer; font-size: 0.9rem; transition: all 0.2s; white-space: nowrap; user-select: none; }
+  .tool-tab:hover { border-color: var(--accent); color: var(--text); }
+  .tool-tab.active { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
 
-  /* Header */
-  header {
-    text-align: center;
-    padding: 40px 0 20px;
-  }
-  header h1 {
-    font-size: 2rem;
-    font-weight: 800;
-    background: linear-gradient(135deg, var(--accent2), var(--green));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  header p {
-    color: var(--muted);
-    margin-top: 8px;
-    font-size: 0.95rem;
-  }
-
-  /* Tool Tabs */
-  .tool-tabs {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    justify-content: center;
-    margin-bottom: 24px;
-  }
-  .tool-tab {
-    padding: 10px 16px;
-    border-radius: 20px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    color: var(--muted);
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: all 0.2s;
-    white-space: nowrap;
-    user-select: none;
-  }
-  .tool-tab:hover {
-    border-color: var(--accent);
-    color: var(--text);
-  }
-  .tool-tab.active {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: #fff;
-    font-weight: 600;
-  }
-  .tool-tab .emoji { margin-right: 4px; }
-
-  /* Main Card */
-  .card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 28px;
-    box-shadow: var(--shadow);
-    margin-bottom: 20px;
-  }
-  .card h2 {
-    font-size: 1.3rem;
-    margin-bottom: 6px;
-  }
-  .card .subtitle {
-    color: var(--muted);
-    font-size: 0.88rem;
-    margin-bottom: 20px;
-  }
-
-  /* Form */
-  .form-group { margin-bottom: 16px; }
-  label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 6px;
-    font-size: 0.9rem;
-  }
-  textarea, input[type="text"] {
-    width: 100%;
-    padding: 14px;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    color: var(--text);
-    font-size: 0.95rem;
-    font-family: inherit;
-    resize: vertical;
-    transition: border 0.2s;
-  }
-  textarea:focus, input:focus {
-    outline: none;
-    border-color: var(--accent);
-  }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; box-shadow: var(--shadow); margin-bottom: 20px; }
+  .card h2 { font-size: 1.3rem; margin-bottom: 6px; }
+  .card .subtitle { color: var(--muted); font-size: 0.88rem; margin-bottom: 20px; }
+  label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 0.9rem; }
+  textarea, input[type="text"] { width: 100%; padding: 14px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 0.95rem; font-family: inherit; resize: vertical; transition: border 0.2s; }
+  textarea:focus, input:focus { outline: none; border-color: var(--accent); }
   textarea { min-height: 160px; }
-
-  .hint {
-    font-size: 0.8rem;
-    color: var(--muted);
-    margin-top: 4px;
-  }
-
-  /* Buttons */
-  .btn {
-    padding: 12px 28px;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    border: none;
-    transition: all 0.2s;
-    font-family: inherit;
-  }
-  .btn-primary {
-    background: var(--accent);
-    color: #fff;
-    width: 100%;
-  }
+  .hint { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
+  .btn { padding: 12px 28px; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; border: none; transition: all 0.2s; font-family: inherit; }
+  .btn-primary { background: var(--accent); color: #fff; width: 100%; }
   .btn-primary:hover { background: #5b4bd5; transform: translateY(-1px); }
-  .btn-primary:disabled {
-    background: #3a3a4a;
-    cursor: not-allowed;
-    transform: none;
-  }
-  .btn-sm {
-    padding: 6px 14px;
-    font-size: 0.85rem;
-    border-radius: 6px;
-  }
-
-  /* Free tier badge */
-  .free-badge {
-    display: inline-block;
-    padding: 4px 10px;
-    border-radius: 12px;
-    font-size: 0.78rem;
-    font-weight: 600;
-    background: rgba(0,210,160,0.15);
-    color: var(--green);
-    margin-left: 8px;
-  }
-  .free-badge.used {
-    background: rgba(255,107,107,0.15);
-    color: var(--red);
-  }
-
-  /* Result */
-  .result-area {
-    margin-top: 20px;
-    padding: 20px;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    min-height: 60px;
-    display: none;
-  }
+  .btn-primary:disabled { background: #3a3a4a; cursor: not-allowed; transform: none; }
+  .btn-sm { padding: 6px 14px; font-size: 0.85rem; border-radius: 6px; }
+  .free-badge { display: inline-block; padding: 4px 10px; border-radius: 12px; font-size: 0.78rem; font-weight: 600; background: rgba(0,210,160,0.15); color: var(--green); margin-left: 8px; }
+  .free-badge.used { background: rgba(255,107,107,0.15); color: var(--red); }
+  .result-area { margin-top: 20px; padding: 20px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; min-height: 60px; display: none; }
   .result-area.visible { display: block; }
   .result-area h3 { margin-bottom: 12px; color: var(--green); }
-
-  /* Markdown content */
-  .md-content {
-    font-size: 0.93rem;
-    line-height: 1.8;
-  }
-  .md-content h1, .md-content h2, .md-content h3 {
-    margin: 16px 0 8px;
-    color: var(--accent2);
-  }
+  .md-content { font-size: 0.93rem; line-height: 1.8; }
+  .md-content h1, .md-content h2, .md-content h3 { margin: 16px 0 8px; color: var(--accent2); }
   .md-content h2 { font-size: 1.2rem; border-bottom: 1px solid var(--border); padding-bottom: 4px; }
-  .md-content h3 { font-size: 1.05rem; }
   .md-content ul, .md-content ol { padding-left: 20px; margin: 8px 0; }
   .md-content li { margin: 4px 0; }
   .md-content strong { color: #fff; }
-  .md-content code {
-    background: var(--card);
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-size: 0.88em;
-  }
-  .md-content pre {
-    background: var(--card);
-    padding: 14px;
-    border-radius: 8px;
-    overflow-x: auto;
-    margin: 10px 0;
-    border: 1px solid var(--border);
-  }
-  .md-content blockquote {
-    border-left: 3px solid var(--accent);
-    padding-left: 12px;
-    color: var(--muted);
-    margin: 10px 0;
-  }
-  .md-content table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 10px 0;
-  }
-  .md-content th, .md-content td {
-    border: 1px solid var(--border);
-    padding: 8px 12px;
-    text-align: left;
-  }
+  .md-content code { background: var(--card); padding: 2px 6px; border-radius: 4px; font-size: 0.88em; }
+  .md-content pre { background: var(--card); padding: 14px; border-radius: 8px; overflow-x: auto; margin: 10px 0; border: 1px solid var(--border); }
+  .md-content blockquote { border-left: 3px solid var(--accent); padding-left: 12px; color: var(--muted); margin: 10px 0; }
+  .md-content table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+  .md-content th, .md-content td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
   .md-content th { background: var(--card); }
-
-  /* Loading */
-  .loading {
-    display: none;
-    text-align: center;
-    padding: 30px;
-  }
+  .loading { display: none; text-align: center; padding: 30px; }
   .loading.visible { display: block; }
-  .spinner {
-    width: 36px;
-    height: 36px;
-    border: 3px solid var(--border);
-    border-top-color: var(--accent);
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-    margin: 0 auto 12px;
-  }
+  .spinner { width: 36px; height: 36px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 12px; }
   @keyframes spin { to { transform: rotate(360deg); } }
-
-  /* Unlock Modal */
-  .modal-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.7);
-    z-index: 100;
-    align-items: center;
-    justify-content: center;
-  }
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 100; align-items: center; justify-content: center; }
   .modal-overlay.visible { display: flex; }
-  .modal {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 32px;
-    max-width: 420px;
-    width: 90%;
-    text-align: center;
-  }
+  .modal { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; max-width: 420px; width: 90%; text-align: center; }
   .modal h3 { margin-bottom: 8px; font-size: 1.2rem; }
   .modal p { color: var(--muted); font-size: 0.9rem; margin-bottom: 16px; }
-  .modal .price {
-    font-size: 2rem;
-    font-weight: 800;
-    color: var(--green);
-    margin: 12px 0;
-  }
-  .modal .unlock-input {
-    margin: 12px 0;
-    text-align: center;
-    font-size: 1.1rem;
-    letter-spacing: 2px;
-  }
+  .modal .price { font-size: 2rem; font-weight: 800; color: var(--green); margin: 12px 0; }
+  .modal .unlock-input { margin: 12px 0; text-align: center; font-size: 1.1rem; letter-spacing: 2px; }
   .modal .btn { width: auto; margin-top: 8px; }
-
-  /* Toast */
-  .toast {
-    position: fixed;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--card);
-    border: 1px solid var(--border);
-    padding: 12px 24px;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    z-index: 200;
-    opacity: 0;
-    transition: opacity 0.3s;
-    pointer-events: none;
-  }
+  .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: var(--card); border: 1px solid var(--border); padding: 12px 24px; border-radius: 20px; font-size: 0.9rem; z-index: 200; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
   .toast.show { opacity: 1; }
-
-  /* Footer */
-  footer {
-    text-align: center;
-    padding: 30px;
-    color: var(--muted);
-    font-size: 0.82rem;
-  }
+  footer { text-align: center; padding: 30px; color: var(--muted); font-size: 0.82rem; }
   footer a { color: var(--accent2); text-decoration: none; }
-
-  /* Responsive */
-  @media (max-width: 600px) {
-    .container { padding: 12px; }
-    .card { padding: 18px; }
-    header h1 { font-size: 1.5rem; }
-    .tool-tab { padding: 8px 12px; font-size: 0.82rem; }
-  }
+  @media (max-width: 600px) { .container { padding: 12px; } .card { padding: 18px; } header h1 { font-size: 1.5rem; } .tool-tab { padding: 8px 12px; font-size: 0.82rem; } }
 </style>
 </head>
 <body>
 
 <div class="container">
-  <!-- Header -->
   <header>
     <h1>🧠 AI 工具箱</h1>
-    <p>学生党 & 职场新人必备 · 六个工具 · 一个入口</p>
+    <p>简历优化 · PPT大纲 · 论文润色 · 演讲稿 · 模拟面试 · 辩论立论</p>
   </header>
 
-  <!-- Tool Tabs -->
   <nav class="tool-tabs" id="toolTabs">
-    <button class="tool-tab active" data-tool="resume"><span class="emoji">📝</span>简历优化</button>
-    <button class="tool-tab" data-tool="ppt"><span class="emoji">📊</span>PPT大纲</button>
-    <button class="tool-tab" data-tool="paper"><span class="emoji">✍️</span>论文润色</button>
-    <button class="tool-tab" data-tool="speech"><span class="emoji">🎤</span>演讲稿</button>
-    <button class="tool-tab" data-tool="interview"><span class="emoji">💬</span>模拟面试</button>
-    <button class="tool-tab" data-tool="debate"><span class="emoji">🗣️</span>辩论立论</button>
+    <button class="tool-tab active" data-tool="resume">📝 简历优化</button>
+    <button class="tool-tab" data-tool="ppt">📊 PPT大纲</button>
+    <button class="tool-tab" data-tool="paper">✍️ 论文润色</button>
+    <button class="tool-tab" data-tool="speech">🎤 演讲稿</button>
+    <button class="tool-tab" data-tool="interview">💬 模拟面试</button>
+    <button class="tool-tab" data-tool="debate">🗣️ 辩论立论</button>
   </nav>
 
-  <!-- Main Card -->
   <div class="card">
     <h2 id="toolTitle">📝 简历优化</h2>
     <p class="subtitle" id="toolSubtitle">粘贴你的简历，AI帮你分析打分并输出优化版</p>
     <span class="free-badge" id="freeBadge">🆓 免费试用 1 次</span>
 
-    <div class="form-group" style="margin-top:16px;">
+    <div style="margin-top:16px;">
       <label for="inputArea" id="inputLabel">粘贴简历内容：</label>
       <textarea id="inputArea" placeholder="在此粘贴你的简历原文..."></textarea>
       <p class="hint" id="inputHint">把你现在的简历全文粘贴进来，中英文都可以</p>
@@ -379,23 +112,18 @@
 
     <button class="btn btn-primary" id="submitBtn" onclick="analyze()">⚡ 开始分析</button>
 
-    <!-- Loading -->
     <div class="loading" id="loading">
       <div class="spinner"></div>
       <p>AI 正在分析中，请稍候...</p>
     </div>
 
-    <!-- Result -->
     <div class="result-area" id="resultArea">
       <h3>✨ 分析结果</h3>
       <div class="md-content" id="resultContent"></div>
     </div>
   </div>
 
-  <footer>
-    AI 工具箱 · 所有数据加密传输 · 不存储用户内容<br>
-    如需解锁全部功能，请添加微信获取解锁码
-  </footer>
+  <footer>AI 工具箱 · 数据加密传输 · 不存储用户内容</footer>
 </div>
 
 <!-- Unlock Modal -->
@@ -413,179 +141,174 @@
   </div>
 </div>
 
-<!-- Toast -->
 <div class="toast" id="toast"></div>
 
 <script>
-// ===== 工具配置 =====
-const TOOL_CONFIG = {
+// ===== 配置 =====
+const API_KEY = "sk-bb7fcc49cff64fb1b8013edf1878d76a"; // DeepSeek API Key
+const UNLOCK_SECRET = "debate2024secret";
+const ALL_ACCESS_CODES = ["VIP888", "DEBATE666"];
+
+const TOOLS = {
   resume: {
-    title: "📝 简历优化",
+    name: "简历优化",
+    icon: "📝",
     subtitle: "粘贴你的简历，AI帮你分析打分并输出优化版",
     label: "粘贴简历内容：",
     placeholder: "在此粘贴你的简历原文...",
     hint: "把你现在的简历全文粘贴进来，中英文都可以",
+    system: "你是一位资深HR和简历专家。用户会给你一份简历原文，请：1.给简历打分（满分100），从内容完整性、表达专业度、亮点突出度三个维度打分 2.列出3-5条具体优化建议 3.输出一份优化后的完整简历。要求：优化后的简历保持原意但更专业有数据感，每条经历用STAR法则重构，自我评价要具体化避免空话。用Markdown输出。",
   },
   ppt: {
-    title: "📊 PPT 大纲生成",
+    name: "PPT大纲生成",
+    icon: "📊",
     subtitle: "告诉AI你的演示主题和场景，一键生成完整大纲",
     label: "描述你的PPT需求：",
-    placeholder: "例如：大三市场营销专业课期末汇报，主题是"瑞幸咖啡的营销策略分析"，需要15页左右，面向老师和同学...",
+    placeholder: "例如：大三市场营销专业课期末汇报，主题是瑞幸咖啡营销策略分析，15页左右...",
     hint: "越详细越好：什么场景、多少页、给谁看、有什么特殊要求",
+    system: "你是一位顶级演示设计顾问。用户会告诉你演示主题和场景，请生成一份完整的PPT大纲。要求：明确每页标题和核心内容（3-5要点），标注每页建议视觉形式（图表/时间轴/对比等），给出演讲备注，整体结构：封面→目录→背景→分析→方案→数据→案例→总结→致谢。用Markdown输出。",
   },
   paper: {
-    title: "✍️ 论文润色降重",
+    name: "论文润色降重",
+    icon: "✍️",
     subtitle: "粘贴论文段落，AI改写降低重复率并优化表达",
     label: "粘贴需要润色的论文段落：",
     placeholder: "在此粘贴需要润色降重的论文文字...",
-    hint: "每次建议粘贴 200-800 字，效果最好。保持原意不变，降重并优化表达",
+    hint: "每次建议粘贴200-800字效果最好，保持原意不变",
+    system: "你是一位学术写作指导老师。用户会给你一段论文文字，请：1.判断重复风险（高/中/低）2.提供润色降重后的版本——保持原意但换用不同句式词汇 3.标注主要修改处。要求：学术性不变专业术语保留，不改变原意和引用，改后文字流畅自然。用Markdown输出。",
   },
   speech: {
-    title: "🎤 演讲稿生成",
+    name: "演讲稿生成",
+    icon: "🎤",
     subtitle: "告诉AI你的演讲场景，生成一篇完整的演讲稿",
     label: "描述演讲需求：",
-    placeholder: "例如：学生会竞选演讲，3分钟，面向全院同学，风格真诚幽默，重点讲我为同学做过的实事...",
+    placeholder: "例如：学生会竞选演讲，3分钟，面向全院同学，风格真诚幽默...",
     hint: "说清楚：什么场合、多长时间、听众是谁、想要什么风格",
+    system: "你是一位专业演讲撰稿人。用户会告诉你演讲场景受众和主题，请写一篇完整演讲稿。要求：开场要有钩子（提问/故事/数据）抓住注意力，主体逻辑清晰观点+案例+升华，结尾有号召力，控制在用户要求时长内，语言口语化适合朗读。用Markdown输出。",
   },
   interview: {
-    title: "💬 模拟面试",
+    name: "模拟面试",
+    icon: "💬",
     subtitle: "输入应聘岗位，生成高频面试题和参考答案",
     label: "输入应聘岗位：",
-    placeholder: "例如：字节跳动 产品经理 校招 或者 公务员面试 综合管理岗",
-    hint: "写清楚岗位名称、公司类型（大厂/国企/公务员等）、校招还是社招",
+    placeholder: "例如：字节跳动 产品经理 校招",
+    hint: "写清楚岗位名称、公司类型（大厂/国企/公务员）、校招还是社招",
+    system: "你是一位资深面试官。用户会告诉你应聘岗位，请：1.列出这个岗位最可能被问到的5-8个面试题（包含行为面和技术面）2.每题给出参考答案框架 3.每题标注面试官在考察什么 4.给出这个岗位的面试通关Tips。题目类型要全面：自我介绍类、经历深挖类、情景模拟类、专业能力类。用Markdown输出。",
   },
   debate: {
-    title: "🗣️ 辩论立论生成",
+    name: "辩论立论生成",
+    icon: "🗣️",
     subtitle: "输入辩题，为你生成正反双方的完整立论框架",
     label: "输入辩题：",
-    placeholder: "例如：人工智能的发展对人类利大于弊 vs 弊大于利",
-    hint: "辩题越清晰，生成的立论越有针对性。包含"vs"或"应不应该"等关键词效果更好",
+    placeholder: "例如：人工智能的发展对人类利大于弊",
+    hint: "辩题越清晰生成的立论越有针对性，包含vs或应不应该等关键词效果更好",
+    system: "你是一位资深辩论教练。用户会给你一个辩题，请为正反方各生成一套立论框架。每套包含：核心立场（一句话定义）、判断标准、3个核心论点（每个配逻辑推导链+事实数据支撑思路+对方可能反驳及预回应）、价值升华方向。用Markdown输出，正反方分开。",
   },
 };
 
-const API_BASE = window.location.origin;
-
-// ===== 状态管理 =====
 let currentTool = "resume";
 let isProcessing = false;
 
-// 免费次数追踪 (localStorage)
+// 免费次数
 function getFreeUses(tool) {
-  try {
-    const data = JSON.parse(localStorage.getItem("ai_tools_free_uses") || "{}");
-    return data[tool] || 0;
-  } catch { return 0; }
+  try { return JSON.parse(localStorage.getItem("aitools_free") || "{}")[tool] || 0; } catch { return 0; }
 }
-function incrementFreeUse(tool) {
-  const data = JSON.parse(localStorage.getItem("ai_tools_free_uses") || "{}");
-  data[tool] = (data[tool] || 0) + 1;
-  localStorage.setItem("ai_tools_free_uses", JSON.stringify(data));
+function useFree(tool) {
+  const d = JSON.parse(localStorage.getItem("aitools_free") || "{}");
+  d[tool] = (d[tool] || 0) + 1;
+  localStorage.setItem("aitools_free", JSON.stringify(d));
 }
 function getUnlocks() {
-  try {
-    return JSON.parse(localStorage.getItem("ai_tools_unlocks") || '{"all":false,"tools":[]}');
-  } catch { return { all: false, tools: [] }; }
+  try { return JSON.parse(localStorage.getItem("aitools_unlock") || '{"all":false,"tools":[]}'); } catch { return {all:false,tools:[]}; }
 }
 function isUnlocked(tool) {
   const u = getUnlocks();
   return u.all || u.tools.includes(tool);
 }
 
-// ===== UI 更新 =====
-function updateToolUI() {
-  const cfg = TOOL_CONFIG[currentTool];
-  document.getElementById("toolTitle").textContent = cfg.title;
-  document.getElementById("toolSubtitle").textContent = cfg.subtitle;
-  document.getElementById("inputLabel").textContent = cfg.label;
-  document.getElementById("inputArea").placeholder = cfg.placeholder;
-  document.getElementById("inputHint").textContent = cfg.hint;
+// 简单哈希
+function simpleHash(s) {
+  let h = 0;
+  for (let i = 0; i < s.length; i++) { h = ((h << 5) - h) + s.charCodeAt(i); h &= h; }
+  return Math.abs(h).toString(16).padStart(8, "0").toUpperCase();
+}
 
-  // 更新免费次数徽章
+// UI 更新
+function updateUI() {
+  const t = TOOLS[currentTool];
+  document.getElementById("toolTitle").textContent = t.icon + " " + t.name;
+  document.getElementById("toolSubtitle").textContent = t.subtitle;
+  document.getElementById("inputLabel").textContent = t.label;
+  document.getElementById("inputArea").placeholder = t.placeholder;
+  document.getElementById("inputHint").textContent = t.hint;
   const badge = document.getElementById("freeBadge");
   if (isUnlocked(currentTool)) {
     badge.textContent = "🔓 已解锁 · 无限次";
     badge.className = "free-badge";
   } else {
     const used = getFreeUses(currentTool);
-    if (used === 0) {
-      badge.textContent = "🆓 免费试用 1 次";
-      badge.className = "free-badge";
-    } else {
-      badge.textContent = "🔒 免费次数已用完";
-      badge.className = "free-badge used";
-    }
+    badge.textContent = used === 0 ? "🆓 免费试用 1 次" : "🔒 免费次数已用完";
+    badge.className = used === 0 ? "free-badge" : "free-badge used";
   }
-
-  // 清空
   document.getElementById("inputArea").value = "";
   document.getElementById("resultArea").classList.remove("visible");
-  document.getElementById("resultContent").innerHTML = "";
   document.getElementById("submitBtn").disabled = false;
 }
 
 // Tab 切换
-document.getElementById("toolTabs").addEventListener("click", (e) => {
+document.getElementById("toolTabs").addEventListener("click", e => {
   const tab = e.target.closest(".tool-tab");
   if (!tab || isProcessing) return;
   currentTool = tab.dataset.tool;
   document.querySelectorAll(".tool-tab").forEach(t => t.classList.remove("active"));
   tab.classList.add("active");
-  updateToolUI();
+  updateUI();
 });
 
-// ===== 核心：调用 API =====
+// ===== 核心：直接调 DeepSeek =====
 async function analyze() {
   if (isProcessing) return;
   const input = document.getElementById("inputArea").value.trim();
+  if (!input) { showToast("⚠️ 请先输入内容"); return; }
 
-  if (!input) {
-    showToast("⚠️ 请先输入内容");
-    return;
-  }
-
-  // 检查免费次数
   if (!isUnlocked(currentTool) && getFreeUses(currentTool) >= 1) {
     showUnlockModal();
     return;
   }
 
-  // 开始
   isProcessing = true;
-  const submitBtn = document.getElementById("submitBtn");
-  submitBtn.disabled = true;
-  submitBtn.textContent = "⏳ 分析中...";
+  const btn = document.getElementById("submitBtn");
+  btn.disabled = true; btn.textContent = "⏳ 分析中...";
   document.getElementById("loading").classList.add("visible");
   document.getElementById("resultArea").classList.remove("visible");
 
   try {
-    const unlockCode = isUnlocked(currentTool)
-      ? (getUnlocks().all ? "ALL_ACCESS" : "TOOL_" + currentTool)
-      : "FREE_TIER";
-
-    const res = await fetch(API_BASE + "/api/analyze", {
+    const res = await fetch("https://api.deepseek.com/v1/chat/completions", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ tool: currentTool, input, unlockCode }),
+      headers: { "Content-Type": "application/json", "Authorization": "Bearer " + API_KEY },
+      body: JSON.stringify({
+        model: "deepseek-chat",
+        max_tokens: 4096,
+        temperature: 0.7,
+        messages: [
+          { role: "system", content: TOOLS[currentTool].system },
+          { role: "user", content: input },
+        ],
+      }),
     });
 
-    const data = await res.json();
-
     if (!res.ok) {
-      if (data.error === "FREE_TIER_EXHAUSTED" || data.error === "INVALID_CODE") {
-        showUnlockModal();
-        return;
-      }
-      throw new Error(data.error || data.message || "请求失败");
+      const err = await res.text();
+      throw new Error("API请求失败: " + res.status);
     }
 
-    // 扣免费次数
-    if (!isUnlocked(currentTool) && unlockCode === "FREE_TIER") {
-      incrementFreeUse(currentTool);
-      updateToolUI();
-    }
+    const data = await res.json();
+    const result = data.choices?.[0]?.message?.content || "（AI未返回内容）";
 
-    // 显示结果
-    document.getElementById("resultContent").innerHTML = marked.parse(data.result);
+    if (!isUnlocked(currentTool)) useFree(currentTool);
+    updateUI();
+
+    document.getElementById("resultContent").innerHTML = marked.parse(result);
     document.getElementById("resultArea").classList.add("visible");
     document.getElementById("resultArea").scrollIntoView({ behavior: "smooth" });
 
@@ -593,98 +316,66 @@ async function analyze() {
     showToast("❌ " + (err.message || "出错了，请重试"));
   } finally {
     isProcessing = false;
-    submitBtn.disabled = false;
-    submitBtn.textContent = "⚡ 开始分析";
+    btn.disabled = false; btn.textContent = "⚡ 开始分析";
     document.getElementById("loading").classList.remove("visible");
   }
 }
 
-// ===== 解锁系统 =====
+// ===== 解锁 =====
 function showUnlockModal() {
   document.getElementById("unlockModal").classList.add("visible");
   document.getElementById("unlockInput").value = "";
   document.getElementById("unlockInput").focus();
 }
-
-function closeModal() {
-  document.getElementById("unlockModal").classList.remove("visible");
-}
+function closeModal() { document.getElementById("unlockModal").classList.remove("visible"); }
 
 async function submitUnlock() {
   const code = document.getElementById("unlockInput").value.trim();
-  if (!code) {
-    showToast("请输入解锁码");
+  if (!code) { showToast("请输入解锁码"); return; }
+
+  // 验证全站通码
+  if (ALL_ACCESS_CODES.includes(code)) {
+    const u = getUnlocks(); u.all = true;
+    localStorage.setItem("aitools_unlock", JSON.stringify(u));
+    closeModal(); updateUI();
+    showToast("🎉 全站解锁成功！");
+    setTimeout(() => analyze(), 300);
     return;
   }
 
-  // 仅验证解锁码（不消耗AI）
-  try {
-    const res = await fetch(API_BASE + "/api/analyze", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        tool: currentTool,
-        unlockCode: code,
-        validateOnly: true,
-      }),
-    });
-
-    const data = await res.json();
-
-    if (!data.valid) {
-      showToast("❌ 解锁码无效，请检查");
-      return;
-    }
-
-    // 保存解锁状态
-    const unlocks = getUnlocks();
-    if (data.type === "all") {
-      unlocks.all = true;
-      showToast("🎉 全站解锁成功！所有工具无限使用");
-    } else {
-      if (!unlocks.tools.includes(currentTool)) {
-        unlocks.tools.push(currentTool);
-      }
-      showToast("✅ " + TOOL_CONFIG[currentTool].title + " 已解锁！");
-    }
-    localStorage.setItem("ai_tools_unlocks", JSON.stringify(unlocks));
-
-    closeModal();
-    updateToolUI();
-    // 自动重试当前分析
+  // 验证单工具码
+  const expected = simpleHash(UNLOCK_SECRET + currentTool).slice(0, 8).toUpperCase();
+  if (code.toUpperCase() === expected) {
+    const u = getUnlocks();
+    if (!u.tools.includes(currentTool)) u.tools.push(currentTool);
+    localStorage.setItem("aitools_unlock", JSON.stringify(u));
+    closeModal(); updateUI();
+    showToast("✅ " + TOOLS[currentTool].name + " 已解锁！");
     setTimeout(() => analyze(), 300);
-
-  } catch (err) {
-    showToast("网络错误，请重试");
+    return;
   }
+
+  showToast("❌ 解锁码无效，请检查");
 }
 
-// 回车提交解锁
-document.getElementById("unlockInput").addEventListener("keydown", (e) => {
+document.getElementById("unlockInput").addEventListener("keydown", e => {
   if (e.key === "Enter") submitUnlock();
 });
-
-// 点击遮罩关闭
-document.getElementById("unlockModal").addEventListener("click", (e) => {
+document.getElementById("unlockModal").addEventListener("click", e => {
   if (e.target === e.currentTarget) closeModal();
 });
-
-// Ctrl+Enter 提交
-document.getElementById("inputArea").addEventListener("keydown", (e) => {
+document.getElementById("inputArea").addEventListener("keydown", e => {
   if ((e.ctrlKey || e.metaKey) && e.key === "Enter") analyze();
 });
 
-// ===== Toast =====
 function showToast(msg) {
-  const toast = document.getElementById("toast");
-  toast.textContent = msg;
-  toast.classList.add("show");
-  clearTimeout(toast._timeout);
-  toast._timeout = setTimeout(() => toast.classList.remove("show"), 2500);
+  const t = document.getElementById("toast");
+  t.textContent = msg; t.classList.add("show");
+  clearTimeout(t._tid);
+  t._tid = setTimeout(() => t.classList.remove("show"), 2500);
 }
 
-// ===== 初始化 =====
-updateToolUI();
+updateUI();
 </script>
 
 </body>
