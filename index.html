@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 工具箱 - 简历优化 | PPT大纲 | 论文润色 | 演讲稿 | 模拟面试 | 辩论立论</title>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<style>
+  :root {
+    --bg: #0f0f14;
+    --card: #1a1a24;
+    --border: #2a2a3a;
+    --text: #e0e0e8;
+    --muted: #8888a0;
+    --accent: #6c5ce7;
+    --accent2: #a29bfe;
+    --green: #00d2a0;
+    --red: #ff6b6b;
+    --yellow: #ffd93d;
+    --radius: 12px;
+    --shadow: 0 4px 24px rgba(0,0,0,0.3);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+
+  /* Background gradient */
+  body::before {
+    content: '';
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 30% 20%, rgba(108,92,231,0.08) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(0,210,160,0.05) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  /* Header */
+  header {
+    text-align: center;
+    padding: 40px 0 20px;
+  }
+  header h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--accent2), var(--green));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  header p {
+    color: var(--muted);
+    margin-top: 8px;
+    font-size: 0.95rem;
+  }
+
+  /* Tool Tabs */
+  .tool-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 24px;
+  }
+  .tool-tab {
+    padding: 10px 16px;
+    border-radius: 20px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    white-space: nowrap;
+    user-select: none;
+  }
+  .tool-tab:hover {
+    border-color: var(--accent);
+    color: var(--text);
+  }
+  .tool-tab.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+    font-weight: 600;
+  }
+  .tool-tab .emoji { margin-right: 4px; }
+
+  /* Main Card */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    box-shadow: var(--shadow);
+    margin-bottom: 20px;
+  }
+  .card h2 {
+    font-size: 1.3rem;
+    margin-bottom: 6px;
+  }
+  .card .subtitle {
+    color: var(--muted);
+    font-size: 0.88rem;
+    margin-bottom: 20px;
+  }
+
+  /* Form */
+  .form-group { margin-bottom: 16px; }
+  label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+  }
+  textarea, input[type="text"] {
+    width: 100%;
+    padding: 14px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 0.95rem;
+    font-family: inherit;
+    resize: vertical;
+    transition: border 0.2s;
+  }
+  textarea:focus, input:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+  textarea { min-height: 160px; }
+
+  .hint {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  /* Buttons */
+  .btn {
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+    width: 100%;
+  }
+  .btn-primary:hover { background: #5b4bd5; transform: translateY(-1px); }
+  .btn-primary:disabled {
+    background: #3a3a4a;
+    cursor: not-allowed;
+    transform: none;
+  }
+  .btn-sm {
+    padding: 6px 14px;
+    font-size: 0.85rem;
+    border-radius: 6px;
+  }
+
+  /* Free tier badge */
+  .free-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    background: rgba(0,210,160,0.15);
+    color: var(--green);
+    margin-left: 8px;
+  }
+  .free-badge.used {
+    background: rgba(255,107,107,0.15);
+    color: var(--red);
+  }
+
+  /* Result */
+  .result-area {
+    margin-top: 20px;
+    padding: 20px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    min-height: 60px;
+    display: none;
+  }
+  .result-area.visible { display: block; }
+  .result-area h3 { margin-bottom: 12px; color: var(--green); }
+
+  /* Markdown content */
+  .md-content {
+    font-size: 0.93rem;
+    line-height: 1.8;
+  }
+  .md-content h1, .md-content h2, .md-content h3 {
+    margin: 16px 0 8px;
+    color: var(--accent2);
+  }
+  .md-content h2 { font-size: 1.2rem; border-bottom: 1px solid var(--border); padding-bottom: 4px; }
+  .md-content h3 { font-size: 1.05rem; }
+  .md-content ul, .md-content ol { padding-left: 20px; margin: 8px 0; }
+  .md-content li { margin: 4px 0; }
+  .md-content strong { color: #fff; }
+  .md-content code {
+    background: var(--card);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.88em;
+  }
+  .md-content pre {
+    background: var(--card);
+    padding: 14px;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 10px 0;
+    border: 1px solid var(--border);
+  }
+  .md-content blockquote {
+    border-left: 3px solid var(--accent);
+    padding-left: 12px;
+    color: var(--muted);
+    margin: 10px 0;
+  }
+  .md-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+  }
+  .md-content th, .md-content td {
+    border: 1px solid var(--border);
+    padding: 8px 12px;
+    text-align: left;
+  }
+  .md-content th { background: var(--card); }
+
+  /* Loading */
+  .loading {
+    display: none;
+    text-align: center;
+    padding: 30px;
+  }
+  .loading.visible { display: block; }
+  .spinner {
+    width: 36px;
+    height: 36px;
+    border: 3px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 12px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Unlock Modal */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-overlay.visible { display: flex; }
+  .modal {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px;
+    max-width: 420px;
+    width: 90%;
+    text-align: center;
+  }
+  .modal h3 { margin-bottom: 8px; font-size: 1.2rem; }
+  .modal p { color: var(--muted); font-size: 0.9rem; margin-bottom: 16px; }
+  .modal .price {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--green);
+    margin: 12px 0;
+  }
+  .modal .unlock-input {
+    margin: 12px 0;
+    text-align: center;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+  }
+  .modal .btn { width: auto; margin-top: 8px; }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 12px 24px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    z-index: 200;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+  .toast.show { opacity: 1; }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 30px;
+    color: var(--muted);
+    font-size: 0.82rem;
+  }
+  footer a { color: var(--accent2); text-decoration: none; }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .container { padding: 12px; }
+    .card { padding: 18px; }
+    header h1 { font-size: 1.5rem; }
+    .tool-tab { padding: 8px 12px; font-size: 0.82rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Header -->
+  <header>
+    <h1>🧠 AI 工具箱</h1>
+    <p>学生党 & 职场新人必备 · 六个工具 · 一个入口</p>
+  </header>
+
+  <!-- Tool Tabs -->
+  <nav class="tool-tabs" id="toolTabs">
+    <button class="tool-tab active" data-tool="resume"><span class="emoji">📝</span>简历优化</button>
+    <button class="tool-tab" data-tool="ppt"><span class="emoji">📊</span>PPT大纲</button>
+    <button class="tool-tab" data-tool="paper"><span class="emoji">✍️</span>论文润色</button>
+    <button class="tool-tab" data-tool="speech"><span class="emoji">🎤</span>演讲稿</button>
+    <button class="tool-tab" data-tool="interview"><span class="emoji">💬</span>模拟面试</button>
+    <button class="tool-tab" data-tool="debate"><span class="emoji">🗣️</span>辩论立论</button>
+  </nav>
+
+  <!-- Main Card -->
+  <div class="card">
+    <h2 id="toolTitle">📝 简历优化</h2>
+    <p class="subtitle" id="toolSubtitle">粘贴你的简历，AI帮你分析打分并输出优化版</p>
+    <span class="free-badge" id="freeBadge">🆓 免费试用 1 次</span>
+
+    <div class="form-group" style="margin-top:16px;">
+      <label for="inputArea" id="inputLabel">粘贴简历内容：</label>
+      <textarea id="inputArea" placeholder="在此粘贴你的简历原文..."></textarea>
+      <p class="hint" id="inputHint">把你现在的简历全文粘贴进来，中英文都可以</p>
+    </div>
+
+    <button class="btn btn-primary" id="submitBtn" onclick="analyze()">⚡ 开始分析</button>
+
+    <!-- Loading -->
+    <div class="loading" id="loading">
+      <div class="spinner"></div>
+      <p>AI 正在分析中，请稍候...</p>
+    </div>
+
+    <!-- Result -->
+    <div class="result-area" id="resultArea">
+      <h3>✨ 分析结果</h3>
+      <div class="md-content" id="resultContent"></div>
+    </div>
+  </div>
+
+  <footer>
+    AI 工具箱 · 所有数据加密传输 · 不存储用户内容<br>
+    如需解锁全部功能，请添加微信获取解锁码
+  </footer>
+</div>
+
+<!-- Unlock Modal -->
+<div class="modal-overlay" id="unlockModal">
+  <div class="modal">
+    <h3>🔒 免费次数已用完</h3>
+    <p>每个工具可免费使用 1 次，继续使用需要解锁</p>
+    <div class="price">💰 9.9 元 / 单工具</div>
+    <p style="font-size:0.82rem;">或 29.9 元全站畅用一个月</p>
+    <p style="font-size:0.82rem;color:var(--yellow);">微信红包后获取解锁码 👇</p>
+    <input type="text" class="unlock-input" id="unlockInput" placeholder="输入解锁码" maxlength="20">
+    <br>
+    <button class="btn btn-primary btn-sm" onclick="submitUnlock()">🔓 解锁</button>
+    <button class="btn btn-sm" style="background:transparent;color:var(--muted);margin-top:8px;" onclick="closeModal()">取消</button>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ===== 工具配置 =====
+const TOOL_CONFIG = {
+  resume: {
+    title: "📝 简历优化",
+    subtitle: "粘贴你的简历，AI帮你分析打分并输出优化版",
+    label: "粘贴简历内容：",
+    placeholder: "在此粘贴你的简历原文...",
+    hint: "把你现在的简历全文粘贴进来，中英文都可以",
+  },
+  ppt: {
+    title: "📊 PPT 大纲生成",
+    subtitle: "告诉AI你的演示主题和场景，一键生成完整大纲",
+    label: "描述你的PPT需求：",
+    placeholder: "例如：大三市场营销专业课期末汇报，主题是"瑞幸咖啡的营销策略分析"，需要15页左右，面向老师和同学...",
+    hint: "越详细越好：什么场景、多少页、给谁看、有什么特殊要求",
+  },
+  paper: {
+    title: "✍️ 论文润色降重",
+    subtitle: "粘贴论文段落，AI改写降低重复率并优化表达",
+    label: "粘贴需要润色的论文段落：",
+    placeholder: "在此粘贴需要润色降重的论文文字...",
+    hint: "每次建议粘贴 200-800 字，效果最好。保持原意不变，降重并优化表达",
+  },
+  speech: {
+    title: "🎤 演讲稿生成",
+    subtitle: "告诉AI你的演讲场景，生成一篇完整的演讲稿",
+    label: "描述演讲需求：",
+    placeholder: "例如：学生会竞选演讲，3分钟，面向全院同学，风格真诚幽默，重点讲我为同学做过的实事...",
+    hint: "说清楚：什么场合、多长时间、听众是谁、想要什么风格",
+  },
+  interview: {
+    title: "💬 模拟面试",
+    subtitle: "输入应聘岗位，生成高频面试题和参考答案",
+    label: "输入应聘岗位：",
+    placeholder: "例如：字节跳动 产品经理 校招 或者 公务员面试 综合管理岗",
+    hint: "写清楚岗位名称、公司类型（大厂/国企/公务员等）、校招还是社招",
+  },
+  debate: {
+    title: "🗣️ 辩论立论生成",
+    subtitle: "输入辩题，为你生成正反双方的完整立论框架",
+    label: "输入辩题：",
+    placeholder: "例如：人工智能的发展对人类利大于弊 vs 弊大于利",
+    hint: "辩题越清晰，生成的立论越有针对性。包含"vs"或"应不应该"等关键词效果更好",
+  },
+};
+
+const API_BASE = window.location.origin;
+
+// ===== 状态管理 =====
+let currentTool = "resume";
+let isProcessing = false;
+
+// 免费次数追踪 (localStorage)
+function getFreeUses(tool) {
+  try {
+    const data = JSON.parse(localStorage.getItem("ai_tools_free_uses") || "{}");
+    return data[tool] || 0;
+  } catch { return 0; }
+}
+function incrementFreeUse(tool) {
+  const data = JSON.parse(localStorage.getItem("ai_tools_free_uses") || "{}");
+  data[tool] = (data[tool] || 0) + 1;
+  localStorage.setItem("ai_tools_free_uses", JSON.stringify(data));
+}
+function getUnlocks() {
+  try {
+    return JSON.parse(localStorage.getItem("ai_tools_unlocks") || '{"all":false,"tools":[]}');
+  } catch { return { all: false, tools: [] }; }
+}
+function isUnlocked(tool) {
+  const u = getUnlocks();
+  return u.all || u.tools.includes(tool);
+}
+
+// ===== UI 更新 =====
+function updateToolUI() {
+  const cfg = TOOL_CONFIG[currentTool];
+  document.getElementById("toolTitle").textContent = cfg.title;
+  document.getElementById("toolSubtitle").textContent = cfg.subtitle;
+  document.getElementById("inputLabel").textContent = cfg.label;
+  document.getElementById("inputArea").placeholder = cfg.placeholder;
+  document.getElementById("inputHint").textContent = cfg.hint;
+
+  // 更新免费次数徽章
+  const badge = document.getElementById("freeBadge");
+  if (isUnlocked(currentTool)) {
+    badge.textContent = "🔓 已解锁 · 无限次";
+    badge.className = "free-badge";
+  } else {
+    const used = getFreeUses(currentTool);
+    if (used === 0) {
+      badge.textContent = "🆓 免费试用 1 次";
+      badge.className = "free-badge";
+    } else {
+      badge.textContent = "🔒 免费次数已用完";
+      badge.className = "free-badge used";
+    }
+  }
+
+  // 清空
+  document.getElementById("inputArea").value = "";
+  document.getElementById("resultArea").classList.remove("visible");
+  document.getElementById("resultContent").innerHTML = "";
+  document.getElementById("submitBtn").disabled = false;
+}
+
+// Tab 切换
+document.getElementById("toolTabs").addEventListener("click", (e) => {
+  const tab = e.target.closest(".tool-tab");
+  if (!tab || isProcessing) return;
+  currentTool = tab.dataset.tool;
+  document.querySelectorAll(".tool-tab").forEach(t => t.classList.remove("active"));
+  tab.classList.add("active");
+  updateToolUI();
+});
+
+// ===== 核心：调用 API =====
+async function analyze() {
+  if (isProcessing) return;
+  const input = document.getElementById("inputArea").value.trim();
+
+  if (!input) {
+    showToast("⚠️ 请先输入内容");
+    return;
+  }
+
+  // 检查免费次数
+  if (!isUnlocked(currentTool) && getFreeUses(currentTool) >= 1) {
+    showUnlockModal();
+    return;
+  }
+
+  // 开始
+  isProcessing = true;
+  const submitBtn = document.getElementById("submitBtn");
+  submitBtn.disabled = true;
+  submitBtn.textContent = "⏳ 分析中...";
+  document.getElementById("loading").classList.add("visible");
+  document.getElementById("resultArea").classList.remove("visible");
+
+  try {
+    const unlockCode = isUnlocked(currentTool)
+      ? (getUnlocks().all ? "ALL_ACCESS" : "TOOL_" + currentTool)
+      : "FREE_TIER";
+
+    const res = await fetch(API_BASE + "/api/analyze", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ tool: currentTool, input, unlockCode }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      if (data.error === "FREE_TIER_EXHAUSTED" || data.error === "INVALID_CODE") {
+        showUnlockModal();
+        return;
+      }
+      throw new Error(data.error || data.message || "请求失败");
+    }
+
+    // 扣免费次数
+    if (!isUnlocked(currentTool) && unlockCode === "FREE_TIER") {
+      incrementFreeUse(currentTool);
+      updateToolUI();
+    }
+
+    // 显示结果
+    document.getElementById("resultContent").innerHTML = marked.parse(data.result);
+    document.getElementById("resultArea").classList.add("visible");
+    document.getElementById("resultArea").scrollIntoView({ behavior: "smooth" });
+
+  } catch (err) {
+    showToast("❌ " + (err.message || "出错了，请重试"));
+  } finally {
+    isProcessing = false;
+    submitBtn.disabled = false;
+    submitBtn.textContent = "⚡ 开始分析";
+    document.getElementById("loading").classList.remove("visible");
+  }
+}
+
+// ===== 解锁系统 =====
+function showUnlockModal() {
+  document.getElementById("unlockModal").classList.add("visible");
+  document.getElementById("unlockInput").value = "";
+  document.getElementById("unlockInput").focus();
+}
+
+function closeModal() {
+  document.getElementById("unlockModal").classList.remove("visible");
+}
+
+async function submitUnlock() {
+  const code = document.getElementById("unlockInput").value.trim();
+  if (!code) {
+    showToast("请输入解锁码");
+    return;
+  }
+
+  // 仅验证解锁码（不消耗AI）
+  try {
+    const res = await fetch(API_BASE + "/api/analyze", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        tool: currentTool,
+        unlockCode: code,
+        validateOnly: true,
+      }),
+    });
+
+    const data = await res.json();
+
+    if (!data.valid) {
+      showToast("❌ 解锁码无效，请检查");
+      return;
+    }
+
+    // 保存解锁状态
+    const unlocks = getUnlocks();
+    if (data.type === "all") {
+      unlocks.all = true;
+      showToast("🎉 全站解锁成功！所有工具无限使用");
+    } else {
+      if (!unlocks.tools.includes(currentTool)) {
+        unlocks.tools.push(currentTool);
+      }
+      showToast("✅ " + TOOL_CONFIG[currentTool].title + " 已解锁！");
+    }
+    localStorage.setItem("ai_tools_unlocks", JSON.stringify(unlocks));
+
+    closeModal();
+    updateToolUI();
+    // 自动重试当前分析
+    setTimeout(() => analyze(), 300);
+
+  } catch (err) {
+    showToast("网络错误，请重试");
+  }
+}
+
+// 回车提交解锁
+document.getElementById("unlockInput").addEventListener("keydown", (e) => {
+  if (e.key === "Enter") submitUnlock();
+});
+
+// 点击遮罩关闭
+document.getElementById("unlockModal").addEventListener("click", (e) => {
+  if (e.target === e.currentTarget) closeModal();
+});
+
+// Ctrl+Enter 提交
+document.getElementById("inputArea").addEventListener("keydown", (e) => {
+  if ((e.ctrlKey || e.metaKey) && e.key === "Enter") analyze();
+});
+
+// ===== Toast =====
+function showToast(msg) {
+  const toast = document.getElementById("toast");
+  toast.textContent = msg;
+  toast.classList.add("show");
+  clearTimeout(toast._timeout);
+  toast._timeout = setTimeout(() => toast.classList.remove("show"), 2500);
+}
+
+// ===== 初始化 =====
+updateToolUI();
+</script>
+
+</body>
+</html>

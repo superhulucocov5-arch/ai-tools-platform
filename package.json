@@ -1,0 +1,16 @@
+{
+  "name": "ai-tools-platform",
+  "version": "1.0.0",
+  "description": "AI工具箱 - 简历优化 PPT大纲 论文润色 演讲稿 模拟面试 辩论立论",
+  "type": "module",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0"
+  },
+  "devDependencies": {
+    "vercel": "^37.0.0"
+  }
+}
